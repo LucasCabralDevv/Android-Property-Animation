@@ -1,7 +1,9 @@
 package com.lucascabral.propertyanimationapp
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.lucascabral.propertyanimationapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private fun listenersToClick() {
         binding.apply {
             rotateButton.setOnClickListener {
-                rotater()
+                rotateStar()
             }
             translateButton.setOnClickListener {
                 translater()
@@ -39,8 +41,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun rotater() {
-
+    private fun rotateStar() {
+        val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
+        animator.duration = 1200
+        animator.start()
     }
 
     private fun translater() {
