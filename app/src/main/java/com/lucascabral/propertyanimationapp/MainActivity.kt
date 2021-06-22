@@ -3,6 +3,7 @@ package com.lucascabral.propertyanimationapp
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 translateStar()
             }
             scaleButton.setOnClickListener {
-                scaler()
+                scaleStar()
             }
             fadeButton.setOnClickListener {
                 fader()
@@ -59,8 +60,15 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun scaler() {
-
+    private fun scaleStar() {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 6f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 6f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(binding.star, scaleX, scaleY)
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.scaleButton)
+        animator.start()
     }
 
     private fun fader() {
