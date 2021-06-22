@@ -1,5 +1,7 @@
 package com.lucascabral.propertyanimationapp
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,6 +46,14 @@ class MainActivity : AppCompatActivity() {
     private fun rotateStar() {
         val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
         animator.duration = 1200
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                binding.rotateButton.isEnabled = false
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                binding.rotateButton.isEnabled = true
+            }
+        })
         animator.start()
     }
 
