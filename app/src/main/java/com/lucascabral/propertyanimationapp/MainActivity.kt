@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 rotateStar()
             }
             translateButton.setOnClickListener {
-                translater()
+                translateStar()
             }
             scaleButton.setOnClickListener {
                 scaler()
@@ -46,19 +46,17 @@ class MainActivity : AppCompatActivity() {
     private fun rotateStar() {
         val animator = ObjectAnimator.ofFloat(binding.star, View.ROTATION, -360f, 0f)
         animator.duration = 1200
-        animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                binding.rotateButton.isEnabled = false
-            }
-            override fun onAnimationEnd(animation: Animator?) {
-                binding.rotateButton.isEnabled = true
-            }
-        })
+        animator.disableViewDuringAnimation(binding.rotateButton)
         animator.start()
     }
 
-    private fun translater() {
-
+    private fun translateStar() {
+        val animator = ObjectAnimator.ofFloat(binding.star, View.TRANSLATION_X, 300f)
+        animator.duration = 800
+        animator.repeatCount = 3
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.translateButton)
+        animator.start()
     }
 
     private fun scaler() {
@@ -75,5 +73,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun shower() {
 
+    }
+
+    private fun ObjectAnimator.disableViewDuringAnimation(view: View) {
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                view.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                view.isEnabled = true
+            }
+        })
     }
 }
