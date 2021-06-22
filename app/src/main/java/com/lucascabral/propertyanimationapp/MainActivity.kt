@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 faderStar()
             }
             colorizeButton.setOnClickListener {
-                colorizeStar()
+                colorizeBackground()
             }
             showerButton.setOnClickListener {
                 shower()
@@ -79,8 +81,15 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun colorizeStar() {
-
+    @SuppressLint("ObjectAnimatorBinding")
+    private fun colorizeBackground() {
+        val animator = ObjectAnimator.ofArgb(binding.star.parent,
+            "backgroundColor", Color.BLACK, Color.RED)
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.colorizeButton)
+        animator.start()
     }
 
     private fun shower() {
