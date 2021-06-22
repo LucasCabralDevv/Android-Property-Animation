@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
                 scaleStar()
             }
             fadeButton.setOnClickListener {
-                fader()
+                faderStar()
             }
             colorizeButton.setOnClickListener {
-                colorizer()
+                colorizeStar()
             }
             showerButton.setOnClickListener {
                 shower()
@@ -71,11 +71,15 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun fader() {
-
+    private fun faderStar() {
+        val animator = ObjectAnimator.ofFloat(binding.star, View.ALPHA, 0f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(binding.fadeButton)
+        animator.start()
     }
 
-    private fun colorizer() {
+    private fun colorizeStar() {
 
     }
 
